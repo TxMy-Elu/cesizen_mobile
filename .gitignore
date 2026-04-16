@@ -1,0 +1,128 @@
+# ============================================================
+# CESIZEN Mobile - .gitignore (Flutter/Dart multi-plateforme)
+# ============================================================
+
+# ------------------------------
+# OS / shell noise
+# ------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+Icon?
+.Spotlight-V100
+.Trashes
+
+# ------------------------------
+# Editors / IDEs
+# ------------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code: ignore local workspace state, keep shareable config files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Optional local history/plugins
+.history/
+.atom/
+
+# ------------------------------
+# Logs / temporary files
+# ------------------------------
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.orig
+
+# ------------------------------
+# Dart / Flutter generated
+# ------------------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+.pub-cache/
+
+# Build outputs (root + nested)
+build/
+**/build/
+
+# Test / coverage artifacts
+coverage/
+test-results/
+
+# Generated API docs
+doc/api/
+
+# Symbolication / obfuscation maps
+app.*.symbols
+app.*.map.json
+
+# ------------------------------
+# Android
+# ------------------------------
+android/.gradle/
+android/local.properties
+android/captures/
+android/**/GeneratedPluginRegistrant.*
+
+# Android app build variants
+android/app/debug/
+android/app/profile/
+android/app/release/
+
+# ------------------------------
+# iOS / macOS (Flutter + Xcode generated)
+# ------------------------------
+ios/Flutter/ephemeral/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/Flutter/.last_build_id
+
+ios/Pods/
+ios/.symlinks/
+ios/Runner.xcworkspace/xcuserdata/
+ios/Runner.xcodeproj/xcuserdata/
+
+macos/Flutter/ephemeral/
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Pods/
+macos/.symlinks/
+macos/Runner.xcworkspace/xcuserdata/
+macos/Runner.xcodeproj/xcuserdata/
+
+# ------------------------------
+# Linux / Windows / Web generated
+# ------------------------------
+linux/flutter/ephemeral/
+windows/flutter/ephemeral/
+windows/runner/Debug/
+windows/runner/Release/
+
+# Flutter web build output (if generated at root)
+web/build/
+
+# ------------------------------
+# Language/build tool leftovers (safe to ignore)
+# ------------------------------
+*.class
+*.pyc
+.build/
+.buildlog/
+.swiftpm/
+.svn/
+migrate_working_dir/
+
+# Documentation
+*.md
+!README.md
+!**/README.md
