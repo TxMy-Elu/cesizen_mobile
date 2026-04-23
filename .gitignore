@@ -122,9 +122,3 @@ web/build/
 .svn/
 migrate_working_dir/
 
-# Documentation
-*.md
-!README.md
-!**/README.md
-!/docs
-!**/docs
