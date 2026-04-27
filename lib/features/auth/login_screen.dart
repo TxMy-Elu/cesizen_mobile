@@ -57,14 +57,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Connexion au backend',
-                            style: TextStyle(fontWeight: FontWeight.w700),
+                        children: const [
+                          Text(
+                            'Bienvenue !',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          const SizedBox(height: 4),
-                          const Text(
-                            'Utilise les identifiants de ton serveur local. L app envoie un JWT apres authentification.',
+                          SizedBox(height: 4),
+                          Text(
+                            'Connectez-vous pour accéder à votre espace personnel et suivre vos sessions de respiration guidée.',
+                            style: TextStyle(fontSize: 14),
                           ),
                         ],
                       ),
@@ -90,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: true,
                       decoration: const InputDecoration(labelText: 'Mot de passe'),
                       validator: (value) => (value == null || value.length < 8)
-                          ? '8 caracteres minimum'
+                          ? '8 caractères minimum'
                           : null,
                     ),
                     const SizedBox(height: 16),
@@ -113,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      child: const Text('Mot de passe oublie ?'),
+                      child: const Text('Mot de passe oublié ?'),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).push(
@@ -153,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Connexion reussie.')),
+        const SnackBar(content: Text('Connexion réussie.')),
       );
       Navigator.pop(context);
     } on ApiException catch (error) {

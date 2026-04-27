@@ -22,7 +22,7 @@ class ArticleDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    article.categorieLibelle ?? 'Prevention',
+                    article.categorieLibelle ?? 'Prévention',
                     style: const TextStyle(
                       color: CesizenColors.primary,
                       fontWeight: FontWeight.w700,
@@ -41,11 +41,11 @@ class ArticleDetailPage extends StatelessWidget {
                   const SizedBox(height: 14),
                   Text(article.contenu, style: const TextStyle(height: 1.45)),
                   const SizedBox(height: 12),
-                  Text('Type media: ${article.typeMedia}'),
+                  Text('Type média: ${article.typeMedia}'),
                   Text('Media: ${article.mediaUrl ?? 'Aucun'}'),
                   Text('Publication: ${article.datePublication?.toIso8601String() ?? 'N/A'}'),
                   Text('Maj: ${article.dateModification?.toIso8601String() ?? 'N/A'}'),
-                  Text('Publie: ${article.estPublie ? 'Oui' : 'Non'}'),
+                  Text('Publié: ${article.estPublie ? 'Oui' : 'Non'}'),
                 ],
               ),
             ),

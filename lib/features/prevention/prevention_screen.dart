@@ -92,7 +92,7 @@ class _PreventionScreenState extends State<PreventionScreen> {
                 const SizedBox(height: 12),
                 OutlinedButton(
                   onPressed: _loadData,
-                  child: const Text('Reessayer'),
+                  child: const Text('Réessayer'),
                 ),
               ],
             ),
@@ -105,7 +105,7 @@ class _PreventionScreenState extends State<PreventionScreen> {
       padding: const EdgeInsets.only(top: 8, bottom: 24),
       children: [
         const Text(
-          'Catalogue prevention',
+          'Catalogue prévention',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 10),
@@ -124,7 +124,7 @@ class _PreventionScreenState extends State<PreventionScreen> {
         ),
         const SizedBox(height: 16),
         Text(
-          'Articles publies: ${_articles.where((item) => item.estPublie).length}',
+          'Articles publiés: ${_articles.where((item) => item.estPublie).length}',
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 10),

@@ -52,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     TextFormField(
                       controller: _firstName,
-                      decoration: const InputDecoration(labelText: 'Prenom'),
+                      decoration: const InputDecoration(labelText: 'Prénom'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Requis';
@@ -89,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       decoration: const InputDecoration(labelText: 'Mot de passe'),
                       validator: (value) {
                         if (value == null || value.length < 8) {
-                          return '8 caracteres minimum';
+                          return '8 caractères minimum';
                         }
                         return null;
                       },
@@ -97,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 8),
                     CheckboxListTile(
                       value: _consent,
-                      title: const Text('J accepte la politique RGPD'),
+                      title: const Text('J\'accepte la politique RGPD'),
                       subtitle: const Text('Consentement explicite requis'),
                       contentPadding: EdgeInsets.zero,
                       onChanged: (value) => setState(() => _consent = value ?? false),
@@ -111,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               height: 18,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : const Text('Creer mon compte'),
+                          : const Text('Créer mon compte'),
                     ),
                   ],
                 ),
@@ -148,7 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Compte cree et connecte.')),
+        const SnackBar(content: Text('Compte créé et connecté.')),
       );
       Navigator.pop(context);
     } on ApiException catch (error) {

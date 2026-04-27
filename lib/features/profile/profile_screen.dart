@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 const Icon(Icons.person_off_rounded, size: 36),
                 const SizedBox(height: 10),
-                const Text('Vous etes en mode anonyme.'),
+                const Text('Vous êtes en mode anonyme.'),
                 const SizedBox(height: 14),
                 FilledButton(
                   onPressed: () async {
@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                     );
                     onSessionChanged();
                   },
-                  child: const Text('Creer un compte'),
+                  child: const Text('Créer un compte'),
                 ),
               ],
             ),
@@ -124,7 +124,7 @@ class _AuthenticatedProfileViewState extends State<_AuthenticatedProfileView> {
     if (userId == null || token == null || token.isEmpty) {
       setState(() {
         _loading = false;
-        _errorMessage = 'Session authentifiee invalide.';
+        _errorMessage = 'Session authentifiée invalide.';
       });
       return;
     }
@@ -185,7 +185,7 @@ class _AuthenticatedProfileViewState extends State<_AuthenticatedProfileView> {
                 const SizedBox(height: 12),
                 OutlinedButton(
                   onPressed: _loadProfile,
-                  child: const Text('Reessayer'),
+                  child: const Text('Réessayer'),
                 ),
               ],
             ),
@@ -216,9 +216,9 @@ class _AuthenticatedProfileViewState extends State<_AuthenticatedProfileView> {
 
     final activityStats = [
       ('Sessions totales', '${_sessions.length}', 'GET /api/exercer/user/{userId}'),
-      ('Sessions completees', '$sessionsCompleted', 'completedAt != null'),
-      ('Serie active', '$streakDays jour(s)', 'Calcul sur completedAt'),
-      ('Derniere session', 'Il y a $daysSinceLastSession jour(s)', 'Max(completedAt)'),
+      ('Sessions complétées', '$sessionsCompleted', 'completedAt != null'),
+      ('Série active', '$streakDays jour(s)', 'Calcul sur completedAt'),
+      ('Dernière session', 'Il y a $daysSinceLastSession jour(s)', 'Max(completedAt)'),
       ('Vues articles', '$articleViewsTotal', 'GET /api/consulter/user/{userId}'),
       ('Articles uniques', '$uniqueArticlesRead', 'Distinct idArticle'),
     ];
@@ -241,10 +241,10 @@ class _AuthenticatedProfileViewState extends State<_AuthenticatedProfileView> {
               onPressed: () {
                 widget.onLogout();
                 ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(content: Text('Session fermee.')));
+                    .showSnackBar(const SnackBar(content: Text('Session fermée.')));
               },
               icon: const Icon(Icons.logout_rounded),
-              label: const Text('Se deconnecter'),
+              label: const Text('Se déconnecter'),
             ),
           ],
         ),
@@ -257,19 +257,19 @@ class _AuthenticatedProfileViewState extends State<_AuthenticatedProfileView> {
         const SizedBox(height: 12),
         SectionCard(
           icon: Icons.visibility_rounded,
-          title: 'Articles consultes',
-          content: '$articleViewsTotal lecture(s) de prevention.',
+          title: 'Articles consultés',
+          content: '$articleViewsTotal lecture(s) de prévention.',
         ),
         const SizedBox(height: 12),
         SectionCard(
           icon: Icons.badge_rounded,
           title: 'Compte',
           content:
-              'Role: ${widget.session.role}\nConsentement RGPD: ${widget.session.rgpdConsent ? 'Oui' : 'Non'}\nCree le: ${widget.session.createdAt}',
+              'Rôle: ${widget.session.role}\nConsentement RGPD: ${widget.session.rgpdConsent ? 'Oui' : 'Non'}\nCréé le: ${widget.session.createdAt}',
         ),
         const SizedBox(height: 12),
         const Text(
-          'Statistiques activite',
+          'Statistiques activité',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 10),

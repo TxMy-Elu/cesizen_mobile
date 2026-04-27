@@ -38,7 +38,7 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   session.isAuthenticated
-                      ? 'Connecte: ${session.userName}'
+                      ? 'Connecté : ${session.userName}'
                       : 'Mode visiteur anonyme',
                   style: const TextStyle(color: Colors.white70),
                 ),
@@ -52,13 +52,13 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.privacy_tip_rounded),
-            title: const Text('Confidentialite'),
+            title: const Text('Confidentialité'),
             onTap: () => _openSimplePage(
               context,
               const InfoPage(
-                title: 'Confidentialite',
+                title: 'Confidentialité',
                 content:
-                    'Le consentement explicite est obligatoire avant toute collecte de donnees de sante. Les donnees sensibles sont protegees et supprimees sur demande (droit a l oubli).',
+                    'Le consentement explicite est obligatoire avant toute collecte de données de santé. Les données sensibles sont protégées et supprimées sur demande (droit à l\'oubli).',
               ),
             ),
           ),
@@ -70,19 +70,19 @@ class AppDrawer extends StatelessWidget {
               const InfoPage(
                 title: 'Cookies',
                 content:
-                    'Les cookies optionnels ne sont actives qu apres consentement. Les preferences peuvent etre modifiees a tout moment.',
+                    'Les cookies optionnels ne sont activés qu\'après consentement. Les préférences peuvent être modifiées à tout moment.',
               ),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.accessibility_new_rounded),
-            title: const Text('Accessibilite'),
+            title: const Text('Accessibilité'),
             onTap: () => _openSimplePage(
               context,
               const InfoPage(
-                title: 'Accessibilite',
+                title: 'Accessibilité',
                 content:
-                    'L application respecte des contrastes eleves, des cibles tactiles superieures a 44 px et des alternatives pour les animations reduites.',
+                    'L\'application respecte des contrastes élevés, des cibles tactiles supérieures à 44 px et des alternatives pour les animations réduites.',
               ),
             ),
           ),
@@ -94,7 +94,7 @@ class AppDrawer extends StatelessWidget {
               const InfoPage(
                 title: 'FAQ',
                 content:
-                    'Cette version mobile couvre les modules citoyens: respiration, prevention, auth, profil et pages legales.',
+                    'Cette version mobile couvre les modules citoyens : respiration, prévention, auth, profil et pages légales.',
               ),
             ),
           ),

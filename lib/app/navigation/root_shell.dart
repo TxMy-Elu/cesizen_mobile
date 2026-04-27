@@ -56,7 +56,7 @@ class _RootShellState extends State<RootShell> {
       ),
     ];
 
-    const labels = ['Accueil', 'Respiration', 'Prevention', 'Profil'];
+    const labels = ['Accueil', 'Respiration', 'Prévention', 'Profil'];
 
     return Scaffold(
       appBar: AppBar(
@@ -91,7 +91,7 @@ class _RootShellState extends State<RootShell> {
           ),
           NavigationDestination(
             icon: Icon(Icons.menu_book_rounded),
-            label: 'Prevention',
+            label: 'Prévention',
           ),
           NavigationDestination(
             icon: Icon(Icons.person_rounded),

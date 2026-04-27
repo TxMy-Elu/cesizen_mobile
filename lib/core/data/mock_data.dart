@@ -12,7 +12,7 @@ class MockData {
     FakeUser(
       id: 'usr_001',
       role: 'UTILISATEUR',
-      firstName: 'Lea',
+      firstName: 'Léa',
       lastName: 'Martin',
       email: 'lea.martin@example.test',
       createdAt: '2026-03-02T09:15:00Z',
@@ -119,11 +119,11 @@ class MockData {
     Article(
       id: 'art_201',
       slug: 'respirer-pendant-une-crise',
-      title: 'Respirer pendant une crise d angoisse',
+      title: 'Respirer pendant une crise d\'angoisse',
       category: 'Stress',
-      summary: 'Technique simple en 3 minutes pour reduire la montee d anxiete.',
+      summary: 'Technique simple en 3 minutes pour réduire la montée d\'anxiété.',
       markdownContent:
-          '## Etapes\n1. Inspire 5s\n2. Expire 5s\n3. Repete 3 minutes',
+        '## Étapes\n1. Inspire 5s\n2. Expire 5s\n3. Répète 3 minutes',
       status: 'PUBLIE',
       isValidatedByHealthPro: true,
       updatedAt: '2026-04-01T10:00:00Z',
@@ -131,11 +131,11 @@ class MockData {
     Article(
       id: 'art_202',
       slug: 'sommeil-et-routine-apaisante',
-      title: 'Sommeil: creer une routine apaisante',
+      title: 'Sommeil: créer une routine apaisante',
       category: 'Sommeil',
       summary: 'Checklist de 5 habitudes pour mieux dormir.',
       markdownContent:
-          '## Routine\n- Lumiere douce\n- Pas d ecran 30 min avant\n- Respiration 5 min',
+        '## Routine\n- Lumière douce\n- Pas d\'écran 30 min avant\n- Respiration 5 min',
       status: 'PUBLIE',
       isValidatedByHealthPro: true,
       updatedAt: '2026-03-26T16:20:00Z',
@@ -143,9 +143,9 @@ class MockData {
     Article(
       id: 'art_203',
       slug: 'angoisse-au-travail-signaux',
-      title: 'Angoisse au travail: reconnaitre les signaux',
+      title: 'Angoisse au travail: reconnaître les signaux',
       category: 'Angoisse au travail',
-      summary: 'Identifier les premiers signaux et agir tot.',
+      summary: 'Identifier les premiers signaux et agir tôt.',
       markdownContent:
           '## Signaux\n- Tension\n- Ruminations\n- Fatigue\n\n## Action\n- Pause + respiration',
       status: 'BROUILLON',

@@ -29,7 +29,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Reset mot de passe')),
+      appBar: AppBar(title: const Text('Réinitialiser le mot de passe')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -45,7 +45,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: _tokenController,
-                    decoration: const InputDecoration(labelText: 'Token de reinitialisation'),
+                    decoration: const InputDecoration(labelText: 'Token de réinitialisation'),
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
@@ -64,7 +64,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       ),
                       OutlinedButton(
                         onPressed: _isLoading ? null : _validateToken,
-                        child: const Text('Verifier le token'),
+                        child: const Text('Vérifier le token'),
                       ),
                       FilledButton(
                         onPressed: _isLoading ? null : _submit,
@@ -74,7 +74,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                 height: 18,
                                 child: CircularProgressIndicator(strokeWidth: 2),
                               )
-                            : const Text('Reinitialiser'),
+                            : const Text('Réinitialiser'),
                       ),
                     ],
                   ),
@@ -102,7 +102,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Si le compte existe, un lien a ete envoye.')),
+        const SnackBar(content: Text('Si le compte existe, un lien a été envoyé.')),
       );
     } on ApiException catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -173,7 +173,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Mot de passe reinitialise avec succes.')),
+        const SnackBar(content: Text('Mot de passe réinitialisé avec succès.')),
       );
       Navigator.pop(context);
     } on ApiException catch (error) {

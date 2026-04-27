@@ -13,9 +13,9 @@ class HomeScreen extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8, bottom: 24),
       children: [
         HeroCard(
-          title: 'Besoin d apaiser une crise maintenant ?',
+          title: 'Besoin d\'apaiser une crise maintenant ?',
           subtitle:
-              'Accede rapidement au module de respiration guidee ou contacte les services d urgence.',
+              'Accède rapidement au module de respiration guidée ou contacte les services d\'urgence.',
           actions: [
             FilledButton.icon(
               onPressed: () => onChangeTab(1),
@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
             OutlinedButton.icon(
               onPressed: () => _showEmergencySheet(context),
               icon: const Icon(Icons.warning_amber_rounded),
-              label: const Text('Numeros urgence'),
+              label: const Text('Numéros d\'urgence'),
             ),
           ],
         ),
@@ -34,14 +34,14 @@ class HomeScreen extends StatelessWidget {
           icon: Icons.shield_rounded,
           title: 'Anonymat visiteur',
           content:
-              'Sans connexion, l application fonctionne sans suivi personnel en backend.',
+              'Sans connexion, l\'application fonctionne sans suivi personnel en backend.',
         ),
         const SizedBox(height: 12),
         const SectionCard(
           icon: Icons.lock_rounded,
-          title: 'Confidentialite RGPD',
+          title: 'Confidentialité RGPD',
           content:
-              'Consentement explicite, securite JWT et droit a l oubli font partie des regles du produit.',
+              'Consentement explicite, sécurité JWT et droit à l\'oubli font partie des règles du produit.',
         ),
       ],
     );
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Urgence immediate',
+              'Urgence immédiate',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
             SizedBox(height: 12),
@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
             ListTile(leading: Icon(Icons.call), title: Text('112 - Urgences Europe')),
             ListTile(
               leading: Icon(Icons.support_agent),
-              title: Text('3114 - Prevention suicide'),
+              title: Text('3114 - Prévention du suicide'),
             ),
           ],
         ),

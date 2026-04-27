@@ -99,7 +99,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                 const SizedBox(height: 12),
                 OutlinedButton(
                   onPressed: _loadExercises,
-                  child: const Text('Reessayer'),
+                  child: const Text('Réessayer'),
                 ),
               ],
             ),
@@ -112,7 +112,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
       padding: const EdgeInsets.only(top: 8, bottom: 24),
       children: [
         HeroCard(
-          title: 'Respiration guidee',
+          title: 'Respiration guidée',
           subtitle:
               'Choisis un exercice, lance la session puis suis le cercle et le timer.',
           actions: [
@@ -121,7 +121,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
               icon: Icon(_isRunning ? Icons.stop_rounded : Icons.play_arrow_rounded),
               label: _sending
                   ? const Text('Envoi...')
-                  : Text(_isRunning ? 'Terminer la session' : 'Demarrer la session'),
+                  : Text(_isRunning ? 'Terminer la session' : 'Démarrer la session'),
             ),
           ],
         ),
@@ -163,9 +163,9 @@ class _BreathingScreenState extends State<BreathingScreen> {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Text(
-              'Sessions completes: $_sessions\n'
+              'Sessions complétées: $_sessions\n'
               'Dernier exercice: ${_selected?.nom ?? 'Aucun'}\n'
-              'Duree session courante: ${_formatDuration(_elapsedMs)}',
+              'Durée de la session courante: ${_formatDuration(_elapsedMs)}',
             ),
           ),
         ),
@@ -193,7 +193,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
             ),
             const SizedBox(height: 4),
             Text(
-              'Secondes phase: $remaining / $safeDuration',
+              'Secondes de phase: $remaining / $safeDuration',
               style: const TextStyle(fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 14),

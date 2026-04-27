@@ -53,7 +53,7 @@ class _ContactPageState extends State<ContactPage> {
                   FilledButton(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Message envoye (simulation locale).')),
+                        const SnackBar(content: Text('Message envoyé (simulation locale).')),
                       );
                     },
                     child: const Text('Envoyer'),
