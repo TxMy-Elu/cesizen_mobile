@@ -9,6 +9,11 @@ class ApiConfig {
       return Uri.parse(overrideUrl);
     }
 
+    // Sur navigateur web, utiliser localhost directement
+    if (kIsWeb) {
+      return Uri.parse('http://localhost:8080');
+    }
+
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return Uri.parse('http://10.0.2.2:8080');

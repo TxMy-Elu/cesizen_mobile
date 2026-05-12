@@ -9,6 +9,15 @@ import 'package:cesizen_mobile/core/models/user_session.dart';
 import 'package:cesizen_mobile/core/theme/app_theme.dart';
 import 'package:cesizen_mobile/core/widgets/cesizen_cards.dart';
 
+const int _tickMs = 40;
+
+String _formatSessionLabel(int seconds) {
+  if (seconds < 60) return '${seconds}s';
+  final m = seconds ~/ 60;
+  final s = seconds % 60;
+  return s == 0 ? '$m min' : '${m}min ${s}s';
+}
+
 class BreathingScreen extends StatefulWidget {
   const BreathingScreen({
     super.key,
@@ -24,8 +33,6 @@ class BreathingScreen extends StatefulWidget {
 }
 
 class _BreathingScreenState extends State<BreathingScreen> {
-  static const int _tickMs = 40;
-
   List<ExerciceDto> _exercises = [];
   ExerciceDto? _selected;
   bool _loading = true;
@@ -34,9 +41,18 @@ class _BreathingScreenState extends State<BreathingScreen> {
   bool _isRunning = false;
   Timer? _sessionTimer;
   int _sessions = 0;
+
+  /// Temps écoulé en ms (interne)
   int _elapsedMs = 0;
+
+  /// Durée max choisie par l'utilisateur (en ms)
+  int _maxDurationMs = 120 * 1000; // défaut 2 min
+
   int _phaseElapsedMs = 0;
   BreathingPhase _phase = BreathingPhase.inspiration;
+
+  /// Temps restant en ms (affiché à l'utilisateur)
+  int get _remainingMs => (_maxDurationMs - _elapsedMs).clamp(0, _maxDurationMs);
 
   @override
   void initState() {
@@ -52,26 +68,19 @@ class _BreathingScreenState extends State<BreathingScreen> {
 
     try {
       final exercises = await widget.exerciseRepository.fetchExercises();
-      if (!mounted) {
-        return;
-      }
+      if (!mounted) return;
       setState(() {
         _exercises = exercises;
         _selected = exercises.isNotEmpty ? exercises.first : null;
+        if (exercises.isNotEmpty) {
+          _maxDurationMs = exercises.first.dureeSession * 1000;
+        }
       });
     } on ApiException catch (error) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        _errorMessage = error.message;
-      });
+      if (!mounted) return;
+      setState(() => _errorMessage = error.message);
     } finally {
-      if (mounted) {
-        setState(() {
-          _loading = false;
-        });
-      }
+      if (mounted) setState(() => _loading = false);
     }
   }
 
@@ -83,9 +92,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
-      return const Center(child: CircularProgressIndicator());
-    }
+    if (_loading) return const Center(child: CircularProgressIndicator());
 
     if (_errorMessage != null) {
       return Center(
@@ -113,8 +120,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
       children: [
         HeroCard(
           title: 'Respiration guidée',
-          subtitle:
-              'Choisis un exercice, lance la session puis suis le cercle et le timer.',
+          subtitle: 'Choisis un exercice et lance la session.',
           actions: [
             FilledButton.icon(
               onPressed: _sending ? null : _toggleSession,
@@ -140,10 +146,9 @@ class _BreathingScreenState extends State<BreathingScreen> {
             child: Card(
               child: ListTile(
                 onTap: () => setState(() {
-                  if (_isRunning) {
-                    return;
-                  }
+                  if (_isRunning) return;
                   _selected = exercise;
+                  _maxDurationMs = exercise.dureeSession * 1000;
                   _resetSessionVisuals();
                 }),
                 leading: Icon(
@@ -152,7 +157,9 @@ class _BreathingScreenState extends State<BreathingScreen> {
                 ),
                 title: Text(exercise.nom),
                 subtitle: Text(
-                  '${exercise.dureeInspiration}s inspire, ${exercise.dureeApnee}s pause, ${exercise.dureeExpiration}s expire',
+                  '${exercise.dureeInspiration}s inspire · '
+                  '${exercise.dureeApnee}s pause · '
+                  '${exercise.dureeExpiration}s expire',
                 ),
               ),
             ),
@@ -163,9 +170,8 @@ class _BreathingScreenState extends State<BreathingScreen> {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Text(
-              'Sessions complétées: $_sessions\n'
-              'Dernier exercice: ${_selected?.nom ?? 'Aucun'}\n'
-              'Durée de la session courante: ${_formatDuration(_elapsedMs)}',
+              'Sessions complétées : $_sessions\n'
+              'Exercice : ${_selected?.nom ?? 'Aucun'}',
             ),
           ),
         ),
@@ -173,14 +179,19 @@ class _BreathingScreenState extends State<BreathingScreen> {
     );
   }
 
+  // ── Animation de respiration ────────────────────────────────────────────────
+
   Widget _buildBreathingAnimationCard() {
     final selected = _selected;
     final phaseDuration = selected == null ? 1 : _phaseDurationFor(_phase, selected);
     final safeDuration = phaseDuration <= 0 ? 1 : phaseDuration;
     final phaseDurationMs = safeDuration * 1000;
     final phaseProgress = (_phaseElapsedMs / phaseDurationMs).clamp(0.0, 1.0);
-    final remainingMs = (phaseDurationMs - _phaseElapsedMs).clamp(0, phaseDurationMs);
-    final remaining = (remainingMs / 1000).ceil();
+    final phaseRemainingMs = (phaseDurationMs - _phaseElapsedMs).clamp(0, phaseDurationMs);
+    final phaseRemaining = (phaseRemainingMs / 1000).ceil();
+
+    // Progression globale (pour la barre de fond)
+    final globalProgress = (_elapsedMs / _maxDurationMs).clamp(0.0, 1.0);
 
     return Card(
       child: Padding(
@@ -193,7 +204,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
             ),
             const SizedBox(height: 4),
             Text(
-              'Secondes de phase: $remaining / $safeDuration',
+              'Phase : $phaseRemaining / $safeDuration s',
               style: const TextStyle(fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 14),
@@ -203,6 +214,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
+                  // Cercle de phase
                   SizedBox(
                     width: 236,
                     height: 236,
@@ -213,6 +225,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                       valueColor: const AlwaysStoppedAnimation<Color>(CesizenColors.primary),
                     ),
                   ),
+                  // Bulle centrale
                   AnimatedContainer(
                     duration: const Duration(milliseconds: _tickMs),
                     curve: Curves.linear,
@@ -228,7 +241,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        _isRunning ? '$remaining' : 'ZEN',
+                        _isRunning ? '$phaseRemaining' : 'ZEN',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 28,
@@ -240,23 +253,57 @@ class _BreathingScreenState extends State<BreathingScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
+
+            // ── Timer global décompte ───────────────────────────────────────
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.timer_outlined, size: 18),
+                const Icon(Icons.timer_outlined, size: 18, color: CesizenColors.primary),
                 const SizedBox(width: 6),
                 Text(
-                  'Timer global: ${_formatDuration(_elapsedMs)}',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  _formatDuration(_remainingMs),
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                    color: _remainingMs <= 10000 && _isRunning
+                        ? Colors.red.shade600
+                        : CesizenColors.foreground,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  '/ ${_formatSessionLabel(_maxDurationMs ~/ 1000)}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF7A9A87),
+                  ),
                 ),
               ],
+            ),
+            const SizedBox(height: 8),
+
+            // Barre de progression globale
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: LinearProgressIndicator(
+                value: globalProgress,
+                minHeight: 6,
+                backgroundColor: const Color(0xFFE3EBE2),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  _remainingMs <= 10000 && _isRunning
+                      ? Colors.red.shade400
+                      : CesizenColors.primary,
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
+  // ── Logique de session ──────────────────────────────────────────────────────
 
   Future<void> _toggleSession() async {
     if (_isRunning) {
@@ -268,9 +315,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
 
   void _startSession() {
     final selected = _selected;
-    if (selected == null) {
-      return;
-    }
+    if (selected == null) return;
 
     _sessionTimer?.cancel();
     setState(() {
@@ -282,13 +327,9 @@ class _BreathingScreenState extends State<BreathingScreen> {
     });
 
     _sessionTimer = Timer.periodic(const Duration(milliseconds: _tickMs), (_) {
-      if (!mounted || !_isRunning) {
-        return;
-      }
+      if (!mounted || !_isRunning) return;
       final current = _selected;
-      if (current == null) {
-        return;
-      }
+      if (current == null) return;
 
       setState(() {
         _elapsedMs += _tickMs;
@@ -297,6 +338,14 @@ class _BreathingScreenState extends State<BreathingScreen> {
         final phaseDurationMs = _phaseDurationFor(_phase, current) * 1000;
         if (phaseDurationMs > 0 && _phaseElapsedMs >= phaseDurationMs) {
           _moveToNextPhase(current);
+        }
+
+        // Arrêt automatique quand le décompte atteint 0
+        if (_elapsedMs >= _maxDurationMs) {
+          _elapsedMs = _maxDurationMs;
+          _isRunning = false;
+          _sessionTimer?.cancel();
+          _recordSession().then((_) => _resetSessionVisuals());
         }
       });
     });
@@ -317,9 +366,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
 
   Future<void> _recordSession() async {
     final selected = _selected;
-    if (selected == null) {
-      return;
-    }
+    if (selected == null) return;
 
     setState(() => _sending = true);
 
@@ -337,26 +384,18 @@ class _BreathingScreenState extends State<BreathingScreen> {
 
       setState(() => _sessions++);
       widget.session.registerBreathingSession();
-      if (!mounted) {
-        return;
-      }
-      final label = widget.session.isAuthenticated ? 'enregistre' : 'termine localement';
+      if (!mounted) return;
+      final label = widget.session.isAuthenticated ? 'enregistrée' : 'terminée localement';
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Session $label avec ${selected.nom}.'),
-        ),
+        SnackBar(content: Text('Session $label avec ${selected.nom}.')),
       );
     } on ApiException catch (error) {
-      if (!mounted) {
-        return;
-      }
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(error.message)),
       );
     } finally {
-      if (mounted) {
-        setState(() => _sending = false);
-      }
+      if (mounted) setState(() => _sending = false);
     }
   }
 
@@ -372,9 +411,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
 
   void _normalizePhaseForExercise(ExerciceDto exercise) {
     for (var i = 0; i < 3; i++) {
-      if (_phaseDurationFor(_phase, exercise) > 0) {
-        return;
-      }
+      if (_phaseDurationFor(_phase, exercise) > 0) return;
       _phase = switch (_phase) {
         BreathingPhase.inspiration => BreathingPhase.apnee,
         BreathingPhase.apnee => BreathingPhase.expiration,
@@ -410,7 +447,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
   }
 
   String _formatDuration(int totalMs) {
-    final totalSeconds = totalMs ~/ 1000;
+    final totalSeconds = (totalMs / 1000).ceil().clamp(0, _maxDurationMs ~/ 1000);
     final minutes = (totalSeconds ~/ 60).toString().padLeft(2, '0');
     final seconds = (totalSeconds % 60).toString().padLeft(2, '0');
     return '$minutes:$seconds';

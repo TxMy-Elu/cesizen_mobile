@@ -86,10 +86,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextFormField(
                       controller: _password,
                       obscureText: true,
-                      decoration: const InputDecoration(labelText: 'Mot de passe'),
+                      decoration: const InputDecoration(
+                        labelText: 'Mot de passe',
+                        helperText: '6 caractères min · 1 chiffre · 1 caractère spécial',
+                        helperMaxLines: 2,
+                      ),
                       validator: (value) {
-                        if (value == null || value.length < 8) {
-                          return '8 caractères minimum';
+                        if (value == null || value.length < 6) {
+                          return '6 caractères minimum requis';
+                        }
+                        if (!RegExp(r'[0-9]').hasMatch(value)) {
+                          return 'Au moins un chiffre requis';
+                        }
+                        if (!RegExp(r"""[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]""").hasMatch(value)) {
+                          return 'Au moins un caractère spécial requis';
                         }
                         return null;
                       },

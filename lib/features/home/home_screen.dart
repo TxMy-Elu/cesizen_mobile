@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
           icon: Icons.lock_rounded,
           title: 'Confidentialité RGPD',
           content:
-              'Consentement explicite, sécurité JWT et droit à l\'oubli font partie des règles du produit.',
+              'Consentement explicite, droit à l\'oubli font partie des règles du produit.',
         ),
       ],
     );

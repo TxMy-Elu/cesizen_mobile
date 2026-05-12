@@ -215,12 +215,12 @@ class _AuthenticatedProfileViewState extends State<_AuthenticatedProfileView> {
     final streakDays = _computeStreak(_sessions);
 
     final activityStats = [
-      ('Sessions totales', '${_sessions.length}', 'GET /api/exercer/user/{userId}'),
-      ('Sessions complétées', '$sessionsCompleted', 'completedAt != null'),
-      ('Série active', '$streakDays jour(s)', 'Calcul sur completedAt'),
-      ('Dernière session', 'Il y a $daysSinceLastSession jour(s)', 'Max(completedAt)'),
-      ('Vues articles', '$articleViewsTotal', 'GET /api/consulter/user/{userId}'),
-      ('Articles uniques', '$uniqueArticlesRead', 'Distinct idArticle'),
+      ('Sessions totales', '${_sessions.length}', 'Séances de respiration enregistrées'),
+      ('Sessions complétées', '$sessionsCompleted', 'Séances menées jusqu\'au bout'),
+      ('Série active', '$streakDays jour(s)', 'Jours consécutifs de pratique'),
+      ('Dernière session', 'Il y a $daysSinceLastSession jour(s)', 'Date de la dernière séance'),
+      ('Vues articles', '$articleViewsTotal', 'Lectures d\'articles de prévention'),
+      ('Articles uniques', '$uniqueArticlesRead', 'Articles distincts consultés'),
     ];
 
     final historySessions = [..._sessions]

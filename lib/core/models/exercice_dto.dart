@@ -5,6 +5,7 @@ class ExerciceDto {
     required this.dureeInspiration,
     required this.dureeApnee,
     required this.dureeExpiration,
+    required this.dureeSession,
     this.description,
   });
 
@@ -13,6 +14,7 @@ class ExerciceDto {
   final int dureeInspiration;
   final int dureeApnee;
   final int dureeExpiration;
+  final int dureeSession;
   final String? description;
 
   factory ExerciceDto.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class ExerciceDto {
       dureeInspiration: _asInt(json['dureeInspiration']) ?? 0,
       dureeApnee: _asInt(json['dureeApnee']) ?? 0,
       dureeExpiration: _asInt(json['dureeExpiration']) ?? 0,
+      dureeSession: _asInt(json['dureeSession']) ?? 120,
       description: json['description']?.toString(),
     );
   }

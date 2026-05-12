@@ -50,7 +50,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: _newPassword,
-                    decoration: const InputDecoration(labelText: 'Nouveau mot de passe'),
+                    decoration: const InputDecoration(
+                      labelText: 'Nouveau mot de passe',
+                      helperText: '6 caractères min · 1 chiffre · 1 caractère spécial',
+                      helperMaxLines: 2,
+                    ),
                     obscureText: true,
                   ),
                   const SizedBox(height: 16),
@@ -156,9 +160,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           .showSnackBar(const SnackBar(content: Text('Token requis.')));
       return;
     }
-    if (_newPassword.text.length < 8) {
+    if (_newPassword.text.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Mot de passe trop court.')),
+        const SnackBar(content: Text('6 caractères minimum requis.')),
+      );
+      return;
+    }
+    if (!RegExp(r'[0-9]').hasMatch(_newPassword.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Au moins un chiffre requis.')),
+      );
+      return;
+    }
+    if (!RegExp(r"""[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]""").hasMatch(_newPassword.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Au moins un caractère spécial requis.')),
       );
       return;
     }
