@@ -1,0 +1,42 @@
+name: ❓ Question
+description: Demander une clarification sur l'app mobile, l'intégration API ou le build
+title: "[Question] "
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Formule ta question de façon autonome — sans contexte extérieur.
+    validations:
+      required: true
+
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte
+      description: Ce que tu as déjà tenté, lu ou consulté.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: domaine
+    attributes:
+      label: Domaine
+      options:
+        - Flutter / Dart
+        - Intégration API
+        - Build Android / iOS
+        - Permissions / plateforme
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: verifications
+    attributes:
+      label: Vérifications préalables
+      options:
+        - label: J'ai consulté le dossier `docs/` du repo
+          required: true
+        - label: J'ai cherché parmi les issues existantes (ouvertes et fermées)
+          required: true

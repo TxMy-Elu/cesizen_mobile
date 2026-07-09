@@ -144,6 +144,7 @@ class _PreventionScreenState extends State<PreventionScreen> {
                 trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 16),
                 onTap: () async {
                   await _registerViewIfPossible(article);
+                  if (!context.mounted) return;
                   await Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => ArticleDetailPage(article: article),
