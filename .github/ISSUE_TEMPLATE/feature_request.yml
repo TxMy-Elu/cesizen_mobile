@@ -1,0 +1,49 @@
+name: ✨ Fonctionnalité
+description: Proposer une évolution de l'app mobile CESIZen
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: besoin
+    attributes:
+      label: Besoin
+      description: Quel problème utilisateur cette évolution résout-elle ?
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User story
+      placeholder: "En tant que <rôle>, je veux <action> afin de <bénéfice>."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critères d'acceptation
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Périmètre
+      options:
+        - Écran / navigation
+        - Widget / composant
+        - Appel API
+        - Notifications / permissions
+        - Accessibilité
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes techniques
+      description: Impacts API, permissions Android/iOS, offline… (facultatif)
